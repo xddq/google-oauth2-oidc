@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "author": "Pierre Dahmani <hi@pierre-dev.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "commonjs",
+  "packageManager": "yarn@3.3.1",
+  "scripts": {
+    "generate-types": "yarn generate-db-types && yarn workspace @app/types run build",
+    "generate-db-types": "yarn kanel"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": "18.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "kanel": "3.2.0"
+  },
+  "dependencies": {
+    "yarn": "^1.22.19"
+  }
+}

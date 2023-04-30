@@ -1,0 +1,14 @@
+node_modules
+
+# monorepo and yarn ignore
+# based on https://github.com/babel/babel/blob/main/.gitignore
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+.env
+
+# used for apple client_secret generation
+client_secret.rb
+key.txt

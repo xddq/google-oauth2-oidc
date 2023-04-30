@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  # used for persisting data
+  postgres:
+    restart: always
+    build:
+      context: ./docker-database
+      dockerfile: psql-dockerfile
+    environment:
+      - POSTGRES_DB=${DB_NAME:-psql}
+      - POSTGRES_USER=${DB_USER:-psql}
+      - POSTGRES_PASSWORD=${DB_PASS:-psql}
+    volumes:
+      - /var/dockerdata/google-oidc/postgresql-data:/var/lib/postgresql/data
+      - /var/dockerdata/google-oidc/postgresql-backups:/backups
+    # NOTE: only enable this for local dev. For deployments we don't need to
+    # expose ports since everything is inside an internal network.
+    ports:
+      - 5432:5432
+
+  # used for session storage.
+  redis:
+    restart: always
+    image: redis:6-bullseye
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - /var/dockerdata/google-oidc/redis-data:/data
+    # NOTE: only enable this for local dev. For deployments we don't need to
+    # expose ports since everything is inside an internal network.
+    ports:
+      - "6379:6379"

@@ -1,0 +1,18 @@
+FROM node:18.16.0-bullseye
+LABEL maintainer="Pierre Dahmani <hi@pierre-dev.com>"
+ENV TZ=Europe/Berlin
+
+# ensures we can run wait-for-it.sh script.
+RUN apt-get install -y curl && \
+    curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64 && \
+    chmod +x /usr/local/bin/dbmate
+
+WORKDIR /srv/node
+
+COPY . .
+
+# install deps
+RUN yarn install --no-immutable
+
+# build packages
+RUN yarn workspaces foreach -vt run build

@@ -1,0 +1,9 @@
+# vim:set ft=dockerfile:
+# postgres LTS
+FROM postgres:14-alpine
+
+# utilities for managing backups.
+COPY ./backup.sh /usr/local/bin
+COPY ./cleanup.sh /usr/local/bin
+COPY ./restore.sh /usr/local/bin
+
